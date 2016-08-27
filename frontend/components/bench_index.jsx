@@ -10,12 +10,10 @@ class BenchIndex extends React.Component {
   }
 
   render () {
-    let benchArray;
-    if (this.props.benches.benches) {
-      benchArray = this.props.benches.benches.map( bench => (
-        <li key={bench.description}>{bench.description}</li>
-      ));
-    }
+    console.log(this.props.benches);
+    const benchArray = this.props.benches.map( bench => (
+      <li key={bench.description}>{bench.description}</li>
+    ));
     return (
       <ul>
         {benchArray}

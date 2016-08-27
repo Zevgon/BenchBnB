@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import { requestBenches } from '../actions/bench_actions';
 import Search from './search';
+import {allBenches} from '../util/allBenches';
 
 const mapStateToProps = state => ({
-  benches: state.benches
+  benches: allBenches(state.benches)
 });
 
 const mapDispatchToProps = dispatch => ({
