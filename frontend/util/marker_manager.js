@@ -13,10 +13,9 @@ class MarkerManager {
 
   _benchesToAdd (benchesInState) {
     let result = [];
+    let that = this;
     benchesInState.forEach(bench => {
-      if (!this.map.includes(bench)) {
-        result.push(bench);
-      }
+      result.push(bench);
     });
 
     return result;
