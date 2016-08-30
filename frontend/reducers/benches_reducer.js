@@ -4,7 +4,9 @@ import merge from 'lodash/merge';
 const BenchesReducer = (state = {}, action) => {
   switch (action.type) {
     case BenchConstants.RECEIVE_BENCHES:
-      return merge({}, action.benches);
+      let newState = merge({}, action.benches);
+      window.newState = newState;
+      return newState;
     default:
       return state;
   }

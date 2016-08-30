@@ -1,5 +1,6 @@
 import React from 'react';
 import MarkerManager from '../util/marker_manager';
+import { updateBounds } from '../actions/filter_actions';
 
 class BenchMap extends React.Component {
   componentDidMount () {
@@ -11,22 +12,25 @@ class BenchMap extends React.Component {
 
     this.map = new google.maps.Map(mapDOMNode, mapOptions);
     this.MarkerManager = new MarkerManager(this.map);
-    console.log(this.props.benches);
-    if (this.props.benches) {
-      this.MarkerManager.updateMarkers(this.props.benches);
-    }
+    this.MarkerManager.updateMarkers(this.props.benches);
+    google.maps.event.addListener(this.map, 'idle', () => {
+      let north = this.map.getBounds().f.b;
+      let south = this.map.getBounds().f.f;
+      let east = this.map.getBounds().b.f;
+      let west = this.map.getBounds().b.b;
+      let ne = {lat: north, lng: east};
+      let sw = {lat: south, lng: west};
+      let bounds = {ne, sw};
+      let that = this;
+      this.props.updateBounds(bounds);
+    });
   }
 
-  componentWillReceiveProps () {
-    if (this.props.benches) {
-      this.MarkerManager.updateMarkers(this.props.benches);
-    }
+  componentWillReceiveProps (newProps) {
+    this.MarkerManager.updateMarkers(newProps.benches);
   }
 
   render () {
-    if (this.MarkerManager) {
-      this.MarkerManager.updateMarkers(this.props.benches);
-    }
     return (
       <div id='map-container' ref='map'></div>
     );

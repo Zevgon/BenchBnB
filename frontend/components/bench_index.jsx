@@ -5,17 +5,12 @@ class BenchIndex extends React.Component {
     super(props);
   }
 
-  componentDidMount () {
-    this.props.requestBenches();
-  }
-
   render () {
-    console.log(this.props.benches);
     const benchArray = this.props.benches.map( bench => (
       <li key={bench.description}>{bench.description}</li>
     ));
     return (
-      <ul>
+      <ul> 
         {benchArray}
       </ul>
     );
